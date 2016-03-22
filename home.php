@@ -4,9 +4,14 @@
     <title>Navfriend</title>
 </head>
 <body style="bg-color:orange;margin:0px;margin-top:0px;" bgcolor="orange">
-    <script src="http://maps.googleapis.com/maps/api/js"></script>
-<script>
+
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
 <?php
+
+function map()
+{
+echo '<script>';
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -50,14 +55,14 @@ if (mysqli_num_rows($result) > 0) {
 }
 mysqli_close($conn);
     
-?>
-    
     //Per la mappa
+    
+echo '
 function initialize() {
-  var myLatLng = {lat: lat[0], lng: lng[0]};
+  var myLatLng = {lat: lat[0] , lng: lng[0]};
   var mapProp = {
     center:new google.maps.LatLng(myLatLng),
-    zoom:8,
+    zoom:10,
     mapTypeId:google.maps.MapTypeId.ROADMAP
   };
   var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
@@ -71,20 +76,21 @@ function initialize() {
         });
     }
     
-    
+}
+google.maps.event.addDomListener(window, "load", initialize);
 
-    
+</script>';
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
- 
-</script>
+map();
+header( "refresh:2;" );
+
+
+?>    
 
 <div id="header" style="margin-top:60px;width:100%;height:20%;background-color:#ffc266;"> <center style="margin-top:60px"><h1>NAVFRIEND</h1></center> </div>
 <div id="googleMap" style="width:100%;height:600px;">
-    <scritp>
-        <?php header( "refresh:2;" );?>
-    </scritp>
+ 
 </div>
 <div id="menu" style="width:100%;height:20%;background-color:#ffc266;">
 <div id="elem" style="display: inline-block;width:33%;height:100%;"><center><h3><a>Inizia viaggio</a></h3></center></div>
